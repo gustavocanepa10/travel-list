@@ -11,19 +11,28 @@ import { useState } from 'react';
 
 
 export default function App() {
-  const [items, setItems] = useState([])
+  const [list, setList] = useState([])
   
-  function handleAddItems(item) {
-    setItems((items => [...items, item]))
+  function handleAddItems(newItem) {
+    setList((list => [...list, newItem]))
 
 }
+
+function handleDeleteItem(id) {
+setList((list) => list.filter((item, index) => {
+  return item.id !== id
+}))
+
+}
+
+
 
 
   return (
     <div className="App">
     <Logo/>
     <Form addItems = {handleAddItems}   />
-    <PackingList items = {items}   />
+    <PackingList items = {list} ondeleteItems = {handleDeleteItem}   />
     <Stats/>
     </div>
   );

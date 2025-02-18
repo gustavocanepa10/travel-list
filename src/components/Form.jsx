@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+// CRIAR O ITEM e ADICIONAR ITEM
+
 
 export function Form({addItems}) {
 
@@ -20,9 +22,12 @@ export function Form({addItems}) {
 
         const newItem = {description, quantity, packed: false, id : Math.random()}
 
-        console.log(newItem)
+        
 
         addItems(newItem)
+        
+
+        
 
         
 
