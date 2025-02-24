@@ -41,7 +41,7 @@ export function Form({addItems}) {
 
     function handleInput(event) {
         setDescription(event.target.value)
-        console.log(event.target.value);
+        
 
         
         
@@ -63,7 +63,7 @@ export function Form({addItems}) {
 
     return (
         <form className="add-form" onSubmit={handleSubmit}>
-            <h3>What do you need for your trip?</h3>
+            <h3>O que você precisa para a viagem?</h3>
             <select value={quantity} onChange={handleSelect}>
                 {Array.from({length : 20}, (_, i) => i +1).map(num => <option value={num} key={num}> {num}    </option>)}
 

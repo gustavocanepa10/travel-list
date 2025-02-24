@@ -12,28 +12,41 @@ import { useState } from 'react';
 
 export default function App() {
   const [list, setList] = useState([])
+
+  
+  
   
   function handleAddItems(newItem) {
     setList((list => [...list, newItem]))
 
 }
 
-function handleDeleteItem(id) {
-setList((list) => list.filter((item, index) => {
-  return item.id !== id
-}))
+  function handleToggleItems(id) {
+    setList((list) => list.map((item) => item.id === id ? {...item, packed: !item.packed} : item))
+  }
 
+
+  function handleDeleteItems(id) {
+    setList((list) => list.filter((item, index) => item.id !== id)) 
+      
+    
+  }
+
+  function handleClearList() {
+    const confirmed = window.confirm("Você tem certeza que quer apagar tudo?");
+    
+    if (confirmed) {
+      setList([]);
+  }
 }
-
-
 
 
   return (
     <div className="App">
     <Logo/>
     <Form addItems = {handleAddItems}   />
-    <PackingList items = {list} ondeleteItems = {handleDeleteItem}   />
-    <Stats/>
+    <PackingList items = {list} onToggleItems = {handleToggleItems}   onDeleteItems = {handleDeleteItems} handleClearList = {handleClearList}    />
+    <Stats  list = {list}   />
     </div>
   );
 }

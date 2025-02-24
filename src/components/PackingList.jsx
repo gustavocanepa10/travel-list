@@ -1,20 +1,18 @@
 // RENDERIZA O ITEM
 
-const initialItems = [
-    { id: 1, description: "Passports", quantity: 4, packed: true },
-    { id: 2, description: "Socks", quantity: 12, packed: false },
-    { id: 3, description: "Charger", quantity: 1, packed: true },
-
-  ];
 
 
-  
 
-    function Item({item, ondeleteItems}) {
+
+
+function Item({item, onToggleItems, onDeleteItems}) {
     return <li >
-       <span style={ item.packed ? {textDecoration : "line-through"} : {}}>{item.description}</span> 
-       <span> {item.quantity}     </span>
-       <button onClick={() => ondeleteItems(item.id)} type="button">❌</button>
+      <input type="checkbox" value={item.packed} onChange={() => onToggleItems(item.id)}  />
+       <span 
+       style={ item.packed ? {textDecoration : "line-through"} : {}}>
+        {item.quantity} {item.description} </span> 
+      
+       <button onClick={() => onDeleteItems(item.id)} type="button">❌</button>
     </li>
         
   
@@ -22,12 +20,22 @@ const initialItems = [
     
 }
 
-  export function PackingList({items, ondeleteItems}) {
+  export function PackingList({items, onToggleItems, onDeleteItems, handleClearList}) {
+    
     return (
         <div className="list">
-            <ul>
-            {items.map((item) => <Item item = {item} ondeleteItems = {ondeleteItems} key = {item.id}/>)}
-            </ul>
+          <ul>
+
+          {items.map((item) => <Item  key={item.id}  item={item} onToggleItems={onToggleItems} onDeleteItems={onDeleteItems}    />  )}
+          </ul>
+
+
+          <div className = "actions">
+            
+            <button onClick = {handleClearList} type="button">Limpar Lista</button>
+
+          </div>
+         
           
         </div>
     )
