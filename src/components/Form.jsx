@@ -1,60 +1,77 @@
-import { useState } from "react";
+
+
+
+import { Controller, useForm } from "react-hook-form";
+
+
+
 
 // CRIAR O ITEM e ADICIONAR ITEM
 
 
-export function Form({addItems}) {
+export function Form({addItems, item}) {
 
-    const [description, setDescription] = useState("")
-    const [quantity, setQuantity] = useState(1)
+
+    const {control, handleSubmit} = useForm({defaultValues : {
+        id : Math.random(),
+        quantity : "",
+        description : ""
+    }})
+
+
+
+    
+    
     
 
     
 
-    function handleSubmit(event) {
-        event.preventDefault();
+    function onSubmit(data) {
 
-        if (!description) return ;
+
+
+        console.log(data);
+
+        
+
+
+        
+           
+
+
+
+        
+        addItems(data)
+        console.log(item)
+        
+
+
 
 
         
 
-
-        const newItem = {description, quantity, packed: false, id : Math.random()}
-
         
 
-        addItems(newItem)
+
         
 
         
 
         
+        
 
-        setDescription("")
-        setQuantity(1)
+        
+
+        
+
+        
         
 
 
     }
 
 
-    function handleInput(event) {
-        setDescription(event.target.value)
-        
-
-        
-        
-        
-    }
-
-    function handleSelect(event) {
-        setQuantity(event.target.value)
-
-        
-       
-
-    }
+    
 
 
 
@@ -62,14 +79,17 @@ export function Form({addItems}) {
 
 
     return (
-        <form className="add-form" onSubmit={handleSubmit}>
+        <form className="add-form"  onSubmit={handleSubmit(onSubmit)}>
             <h3>O que você precisa para a viagem?</h3>
-            <select value={quantity} onChange={handleSelect}>
+            <Controller control={control} name="quantity" render={({field}) => ( <select {...field}  >
                 {Array.from({length : 20}, (_, i) => i +1).map(num => <option value={num} key={num}> {num}    </option>)}
 
-            </select>
-            <input onChange={handleInput} value={description} type="text" placeholder="item..." />
-            <button>Add</button>
+            </select>)}  />
+
+            <Controller control={control} name="description" render={({field}) => (<input  type="text" placeholder="item..." {...field} />)}  />
+           
+            
+            <button type = "submit">Add</button>
 
         </form>
     )

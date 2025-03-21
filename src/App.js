@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 
 
+
 export default function App() {
   const [list, setList] = useState([])
 
@@ -17,17 +18,17 @@ export default function App() {
   
   
   function handleAddItems(newItem) {
-    setList((list => [...list, newItem]))
+    setList((prevList => [...prevList, newItem]))
 
 }
 
   function handleToggleItems(id) {
-    setList((list) => list.map((item) => item.id === id ? {...item, packed: !item.packed} : item))
+    setList((prevList) => prevList.map((item) => item.id === id ? {...item, packed: !item.packed} : item))
   }
 
 
   function handleDeleteItems(id) {
-    setList((list) => list.filter((item, index) => item.id !== id)) 
+    setList((prevList) => prevList.filter((item, index) => item.id !== id)) 
       
     
   }
@@ -44,7 +45,7 @@ export default function App() {
   return (
     <div className="App">
     <Logo/>
-    <Form addItems = {handleAddItems}   />
+    <Form addItems = {handleAddItems} item = {list}   />
     <PackingList items = {list} onToggleItems = {handleToggleItems}   onDeleteItems = {handleDeleteItems} handleClearList = {handleClearList}    />
     <Stats  list = {list}   />
     </div>
