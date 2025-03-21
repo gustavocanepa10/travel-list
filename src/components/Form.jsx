@@ -2,11 +2,22 @@
 
 
 import { Controller, useForm } from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup"
+import * as yup from "yup"
 
 
 
 
 // CRIAR O ITEM e ADICIONAR ITEM
+
+
+const schema = yup.object(
+    {
+    quantity : yup.string().required("Quantidade é obrigatória"),
+    description : yup.string().required("Descrição é obrigatória")
+
+    }
+)
 
 
 export function Form({addItems, item}) {
@@ -16,7 +27,10 @@ export function Form({addItems, item}) {
         id : Math.random(),
         quantity : "",
         description : ""
-    }})
+    },
+
+    resolver : yupResolver(schema)
+})
 
 
 
